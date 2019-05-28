@@ -38,14 +38,14 @@ BuildRequires:  libusb-1_0-devel pkg-config
 
 %if 0%{?fedora_version} >26
 BuildRequires:  cmake
-BuildRequires:  udev gtk3-devel glu-devel glfw glfw-devel
+BuildRequires:  udev gtk3-devel  glfw glfw-devel
 BuildRequires:  pkgconf-pkg-config
 BuildRequires:  libusb1-devel
 %endif
 
 %if 0%{?fedora_version} <27
 BuildRequires:  cmake
-BuildRequires:  udev gtk3-devel glu-devel glfw glfw-devel
+BuildRequires:  udev gtk3-devel glfw glfw-devel
 BuildRequires:  pkgconfig
 BuildRequires:  libusb1-devel
 %endif
