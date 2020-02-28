@@ -17,11 +17,11 @@
 
 
 Name:           librealsense
-Version:        2.22.0
+Version:        2.32.1
 Release:        97.5
 Summary:        Library for capturing data from the Intel(R) RealSense(TM) depth cameras (D400 series and the SR300) and the T265 tracking camera.
 License:        ASL-2.0
-Packager:  Alessandro de Oliveira Faria (A.K.A CABELO) <cabelo@opensuse.org>
+Packager:       Alessandro de Oliveira Faria (A.K.A CABELO) <cabelo@opensuse.org>
 Group:          Development/Libraries/C and C++
 Url:            https://software.intel.com/en-us/intel-realsense-sdk
 Source0:        https://github.com/IntelRealSense/librealsense/archive/librealsense-%{version}.tar.gz
@@ -38,14 +38,14 @@ BuildRequires:  libusb-1_0-devel pkg-config
 
 %if 0%{?fedora_version} >26
 BuildRequires:  cmake
-BuildRequires:  udev gtk3-devel  glfw glfw-devel
+BuildRequires:  udev gtk3-devel mesa-libGL-devel mesa-libGLU-devel  glfw glfw-devel
 BuildRequires:  pkgconf-pkg-config
 BuildRequires:  libusb1-devel
 %endif
 
 %if 0%{?fedora_version} <27
 BuildRequires:  cmake
-BuildRequires:  udev gtk3-devel glfw glfw-devel
+BuildRequires:  udev gtk3-devel glfw glfw-devel mesa-libGLU-devel mesa-libGL-devel
 BuildRequires:  pkgconfig
 BuildRequires:  libusb1-devel
 %endif
@@ -53,7 +53,7 @@ BuildRequires:  libusb1-devel
 %endif
 %if 0%{?rhel_version} || 0%{?centos_version}
 BuildRequires:  pkgconfig
-BuildRequires:  udev gtk3-devel glu-devel glfw glfw-devel
+BuildRequires:  udev gtk3-devel mesa-libGLU-devel mesa-libGL-devel
 BuildRequires:  libusb1-devel 
 BuildRequires: cmake >= 2.8.12.2
 
@@ -86,7 +86,11 @@ export CFLAGS="%{optflags} $(getconf LFS_CFLAGS)"
 export CXXFLAGS="%{optflags} ${mlra} $(getconf LFS_CFLAGS)"
 mkdir build
 cd build
-cmake .. 
+%if 0%{?rhel_version} || 0%{?centos_version}
+cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLES=false -DBUILD_GRAPHICAL_EXAMPLES=false
+%else
+cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLES=true -DBUILD_GRAPHICAL_EXAMPLES=true
+%endif 
 make %{?_smp_mflags} VERBOSE=0
 
 %install
@@ -99,6 +103,9 @@ rm %{?buildroot}/usr/local/lib/cmake/realsense/realsenseConfig.cmake
 rm %{?buildroot}/usr/local/lib/cmake/realsense/realsenseTargets-noconfig.cmake
 rm %{?buildroot}/usr/local/lib/cmake/realsense/realsenseTargets.cmake
 %endif
+ls %{?buildroot}/usr/local/include -l
+ls %{?buildroot}/usr/local/lib64 -l
+
 
 #%post -n %{name} -p /sbin/ldconfig
 
@@ -119,17 +126,18 @@ rm %{?buildroot}/usr/local/lib/cmake/realsense/realsenseTargets.cmake
 
 %files devel
 %defattr(-,root,root,-)
-%{_usr}/local/lib64/librealsense2.so.2.22
+%{_usr}/local/lib64/librealsense2.so.2.32
 %{_usr}/local/lib64/librealsense2.so
-%{_usr}/local/lib64/librealsense2-gl.so.2.22
+%{_usr}/local/lib64/librealsense2-gl.so.2.32
 %{_usr}/local/lib64/librealsense2-gl.so
 %{_usr}/local/lib64/cmake/glfw3/*
 %{_usr}/local/lib64/cmake/realsense2/*
+%{_usr}/local/lib64/cmake/realsense2-gl/*
 %{_usr}/local/lib64/pkgconfig/*
 %{_usr}/local/include/GLFW/*
+%{_usr}/local/include/librealsense2-gl/*
 %{_usr}/local/include/librealsense2/*
 %{_usr}/local/include/librealsense2/h/*
 %{_usr}/local/include/librealsense2/hpp/*
-
 
 %changelog

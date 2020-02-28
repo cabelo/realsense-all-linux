@@ -22,8 +22,9 @@ build-stamp:
 	ls -l
 	# --- mkdir build
 	# --- cd build
-	cmake .
+	cmake . -DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLES=true -DBUILD_GRAPHICAL_EXAMPLES=true
 	make
+	make install
 	# --- end custom part for compiling
 
 	touch build-stamp

@@ -1,6 +1,6 @@
-librealsense (1.12-2) stable; urgency=low
+librealsense (2.22-0) stable; urgency=low
 
   * Create package in openSuse Build
 
- -- Alessandro de Oliveira Faria A.K.A. CABELO <cabelo@opensuse.org> Thu, 17 Aug 2017 14:50:38 +0100
+ -- Alessandro de Oliveira Faria A.K.A. CABELO <cabelo@opensuse.org> Sun, 2 Jun 2019 14:50:38 +0100
  

@@ -2,10 +2,10 @@ Source: librealsense
 Section: unknown
 Priority: optional
 Maintainer: Alessandro de Oliviera Faria (A.K.A. CABELO) <cabelo@opensuse.org>
-Build-Depends: cmake, pkg-config, g++, xorg-dev, make, libx11-dev, libreadline-dev,  debhelper (>= 4.1.16)
+Build-Depends: cmake, pkg-config, g++, xorg-dev, make, libx11-dev, libreadline-dev,  debhelper (>= 4.1.16), libglfw3-dev, git, libssl-dev, libusb-1.0-0-dev, libgtk-3-dev
 
 Package: librealsense
 Architecture: any
 Depends: ${shlibs:Depends}
 Description: librealsense
- Library for capturing data from the Intel(R) RealSense(TM) F200, SR300, R200, LR200 and ZR300 cameras. This effort was initiated to better support researchers, creative coders, and app developers in domains such as robotics, virtual reality, and the internet of things. Several often-requested features of RealSense(TM); devices are implemented in this project, including multi-camera capture.
+ Library for capturing data from the Intel(R) RealSense(TM) depth cameras (D400 series and the SR300) and the T265 tracking camera. This effort was initiated to better support researchers, creative coders, and app developers in domains such as robotics, virtual reality, and the internet of things. Several often-requested features of RealSense(TM); devices are implemented in this project, including multi-camera capture.
